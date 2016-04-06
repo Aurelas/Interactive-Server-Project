@@ -32,7 +32,8 @@ How will you know if you are successful?
 If you include some kind of _quantitative analysis,_ that would be good.
 
 ## Architecture Diagram
-Upload the architecture diagram you made for your slide presentation to your repository, and include it in-line here.
+
+![alt text]()
 
 Create several paragraphs of narrative to explain the pieces and how they interoperate.
 
