@@ -33,7 +33,7 @@ If you include some kind of _quantitative analysis,_ that would be good.
 
 ## Architecture Diagram
 
-![alt text]https://raw.githubusercontent.com/oplS16projects/Interactive-Server-Project/master/OPL%20Architecture%20interactive%20server.png)
+![alt text](https://raw.githubusercontent.com/oplS16projects/Interactive-Server-Project/master/OPL%20Architecture%20interactive%20server.png)
 
 Create several paragraphs of narrative to explain the pieces and how they interoperate.
 
