@@ -35,7 +35,20 @@ If you include some kind of _quantitative analysis,_ that would be good.
 
 ![alt text](https://raw.githubusercontent.com/oplS16projects/Interactive-Server-Project/master/OPL%20Architecture%20interactive%20server.png)
 
-Create several paragraphs of narrative to explain the pieces and how they interoperate.
+Create several paragraphs of narrative to explain the pieces and how they interoperate
+
+Net/url and racket:
+
+Using the Net/url library we will be able to write code which will grab data from our SQL server and transform it into a string, this string will then be read into a racket object for storing.
+
+2htdp/Universe and world:
+
+Once we have the racket object with our database data inside, we can use the net/url functions to access specific pieces of data. This data will mostly be comprised of numbers which in turn can be interpreted interpretted as a 'world state' by the 2htdp/Universe library. For example our object may contain a field called 'Number of goals' which will have a number associated with it. We can take this number, transform it into a 'world state' then we can transform the world using mouse clicks and keyboard keys to change the number. After changing the number the 'world' will report back a new 'world state', we will take this new 'world state' and load it into the object ultimately changing the information of our database.
+
+2hdtp/image:
+
+Hopefully by utilizing 2hdtp/image function we will be able to make the 'worlds' look more appealing to eye and possibly add some cool effects.
+
 
 ## Schedule
 Explain how you will go from proposal to finished product. 
