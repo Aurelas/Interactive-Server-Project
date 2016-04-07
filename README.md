@@ -1,35 +1,45 @@
 
 # Project Title: Interactive-Server-Project
+# Team Name: Ken's Bold Team
 
 ### Statement
-Describe your project. Why is it interesting? Why is it interesting to you personally? What do you hope to learn? 
+In this project, we will create an interactive display of hockey-stats for JBrown's beer-league team. 
+Basics include, displaying indivudual stats, statistics from games, aswell as displaying who the point leaders of the team are.
+To expand on this basic simple idea, we are also going to implement several algorithms to detect who the "trending" players are, and display facts about them.
+In ex. if a player has been 'hot' recently, the algorithm should identify them, and display their name in a "Players to Watch" list. Beneath their name, our program should use a tree to decide what 2 "facts" are most relevant to the player.
+
+So if they've scored 5 goals in the last 10 games, but three were in the last game, it will choose "Hat-trick Scorer" over "5 in Last 10"
+
+We plan to make this application fully interactive, meaning that users will be able to sort data with simple mouse clicks.
+Additionally, they should be able to update game stats easily within the program, which will then in turn update player stats.
+
+Our main goal is learning how to build an effective GUI in Racket, but also to work on parsing and morphing data.
 
 ### Analysis
-Explain what approaches from class you will bring to bear on the project. Be explicit: e.g., will you use recursion? How? Will you use map/filter/reduce? How? Will you use data abstraction? Will you use object-orientation? Will you use functional approaches to processing your data? Will you use state-modification approaches? A combination?
+There are two data sets we are going to use, detailed below.
+For one of the data sets, poorly written raw html code will lead to extensive use of recursion. Slowly parsing through the file to grab and use the data held in the document will require heavy use of recursion.
 
-The idea here is to identify what ideas from the class you will use in carrying out your project. 
+Additionally, heavy use of list functions will be required for dealing with lists holding players, lists holding goalies, and lists holding games.
+
+Object-orientation will be used in conjuction with 'images' to hopefully create 'clickable' objects.
+
 
 ### Data set or other source materials
-If you will be working with existing data, where will you get those data from? (Dowload it from a website? access it in a database? create it in a simulation you will build....)
+There will be two main data sets we will work with in this project. The first is from a SQL database on my own personal site (m.jdbjohnbrown.net) and the second is from hockeytownsaugus.com, html code riddled with errors.
 
-How will you convert that data into a form usable for your project?  
+We will need to write new PHP code for handling the SQL interaction, as this is going to be stored in a public repository, and using the SQL database libraries would require making hosting the passwords publically.
 
-Do your homework here: if you are pulling data from somewhere, actually go download it and look at it. Explain in some detail what your plan is for accomplishing the necessary processing.
+The data will be sorted into neatly formed lists, from where we will alter the data to our liking using various parsing methods, to then be displayed graphically.  
 
-If you are using some other starting materails, explain what they are. Basically: anything you plan to use that isn't code.
 
 ### Deliverable and Demonstration
-Explain exactly what you'll have at the end. What will it be able to do at the live demo?
+At the end of this project we should have a program that not only pulls then displays data from a pair of websites, but also allows users to change the data in the SQL database. The program will also run various tests on the data sets and compliment players who are doing well, and bring attention to them for recent good performances.
 
-What exactly will you produce at the end of the project? A piece of software, yes, but what will it do? Here are some questions to think about (and answer depending on your application).
-
-Will it run on some data, like batch mode? Will you present some analytical results of the processing? How can it be re-run on different source data?
-
-Will it be interactive? Can you show it working? This project involves a live demo, so interactivity is good.
+Again, this is all the background work behind the real goal, of making an interactive GUI which will use basic shapes to display and manipulate the data without using the command line.
 
 ### Evaluation of Results
-How will you know if you are successful? 
-If you include some kind of _quantitative analysis,_ that would be good.
+We will know when we are successful when someone brand-new to our program can easily utilize our tool to view and update statistics.
+This should be easily testable in a presentation, as well in testing phases, as asking for a voulenteer will be brief.
 
 ## Architecture Diagram
 
@@ -51,39 +61,23 @@ Hopefully by utilizing 2hdtp/image function we will be able to make the 'worlds'
 
 
 ## Schedule
-Explain how you will go from proposal to finished product. 
-
-There are three deliverable milestones to explicitly define, below.
-
-The nature of deliverables depend on your project, but may include things like processed data ready for import, core algorithms implemented, interface design prototyped, etc. 
-
-You will be expected to turn in code, documentation, and data (as appropriate) at each of these stages.
-
-Write concrete steps for your schedule to move from concept to working system. 
 
 ### First Milestone (Fri Apr 15)
-What exactly will be turned in on this day? 
+Basic mouse-click interactive program. Clickable buttons which execute functions.
 
 ### Second Milestone (Fri Apr 22)
-What exactly will be turned in on this day? 
+Algorithm results display on screen. -> Fun facts about "trending" players will appear.
+Numerous 'pages' within the application will display different sets of data.
 
 ### Final Presentation (last week of semester)
-What additionally will be done in the last chunk of time?
+Sending data back to the server for updates.
+Possibly addition smooth graphical transitions between pages.
 
 ## Group Responsibilities
-Here each group member gets a section where they, as an individual, detail what they are responsible for in this project. Each group member writes their own Responsibility section. Include the milestones and final deliverable.
-
-**Additional instructions for teams of three:** 
-* Remember that you must have prior written permission to work in groups of three (specifically, an approved `FP3` team declaration submission).
-* The team must nominate a lead. This person is primarily responsible for code integration. This work may be shared, but the team lead has default responsibility.
-* The team lead has full partner implementation responsibilities also.
-* Identify who is team lead.
-
-In the headings below, replace the silly names and GitHub handles with your actual ones.
 
 ### Michael Antrobus @Aurelas
 Helping debug the program along with setting up interactive functionality to the program. Will also work to help the interactive 'worlds' talk to an SQL server.
 
-### Frank Functions @frankiefunk 
-Frank is team lead. Additionally, Frank will work on...   
+### John Brown @JDBJohnBrown
+John will work heavily on the retrieval and manipulation of data, as well as writing any PHP code neccesary for interacting with the SQL server.   Will assist with interactivity in the GUI.
 
