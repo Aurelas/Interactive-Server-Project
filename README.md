@@ -23,6 +23,8 @@ Additionally, heavy use of list functions will be required for dealing with list
 
 Object-orientation will be used in conjuction with 'images' to hopefully create 'clickable' objects.
 
+Currently we have a working GUI with a couple of buttons that we can click to change the image of our GUI and have a pretty clear cut idea on how to make the program fully interactive. We will use (m.jdbjohnbrown.net) as a template and temper our racket program to mimic the functionality of the template. 
+
 
 ### Data set or other source materials
 There will be two main data sets we will work with in this project. The first is from a SQL database on my own personal site (m.jdbjohnbrown.net) and the second is from hockeytownsaugus.com, html code riddled with errors.
@@ -69,6 +71,8 @@ Basic mouse-click interactive program. Clickable buttons which execute functions
 Algorithm results display on screen. -> Fun facts about "trending" players will appear.
 Numerous 'pages' within the application will display different sets of data.
 
+Finish creating the rest of the images and implementing them. Will also add arrow key functionality to specific images to mimic an image slideshow.
+
 ### Final Presentation (last week of semester)
 Sending data back to the server for updates.
 Possibly addition smooth graphical transitions between pages.
@@ -76,7 +80,8 @@ Possibly addition smooth graphical transitions between pages.
 ## Group Responsibilities
 
 ### Michael Antrobus @Aurelas
-Helping debug the program along with setting up interactive functionality to the program. Will also work to help the interactive 'worlds' talk to an SQL server.
+Will work on implementing the rest of the UI and screens using (m.jdbjohnbrown.net) as a template, will also add up arrow
+and down arrow functionality to limited screens.
 
 ### John Brown @JDBJohnBrown
 John will work heavily on the retrieval and manipulation of data, as well as writing any PHP code neccesary for interacting with the SQL server.   Will assist with interactivity in the GUI.
