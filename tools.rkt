@@ -7,6 +7,8 @@
 (provide cdr-str)
 (provide list-last)
 (provide but-last)
+(provide get-num-list)
+(provide edit-num-list)
 (define (remove-last lst)
     (if (null? (cdr lst))
         '()
@@ -32,3 +34,19 @@
 
 (define (list-last lst) (if (null? lst) '() (car (reverse lst))))
 (define (but-last lst) (if (null? lst) '()(reverse (cdr (reverse lst)))))
+
+(define (get-num-list x lst)
+  (define (loop n x lst)
+    (if (null? lst) '()
+        (if (= n x) (car lst)
+            (loop (+ n 1) x (cdr lst)))))
+  (loop 1 x lst)
+  )
+
+(define (edit-num-list x lst edit)
+  (define (loop n x lst new edit)
+    (if (null? lst) new
+         (if (= n x)  (loop (+ n 1) x (cdr lst) (append new (list edit)) edit)
+             (loop (+ n 1) x (cdr lst) (append new (list (car lst))) edit))))
+  (loop 1 x lst '() edit)
+  )
