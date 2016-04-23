@@ -12,10 +12,12 @@
 (provide get-player)
 (provide get-firstname)
 (provide get-lastname)
+(provide get-fullname)
 (provide get-goals)
 (provide get-number)
 (provide get-assists)
 (provide get-points)
+(provide trending-top-3)
 ;I recently set up a piece of software (m.jdbjohnbrown.net) that used php _POST functions to retrieve data from a SQL table.
 ;I wanted to experiment and see if I could pull out the data using racket.
 ;The information held in the database is player stats and information for a hockey team I play for.
@@ -298,11 +300,21 @@
 ;This code has two different ways to run, but returns the same output.
 ;You either pass it a player's id number (1-12) or Lastname, Firstname and it will
 ;return the player object out of aP
+;(define (get-player x)
+;  (define (str x lst)
+;    (if (equal? x (get-fullname (car lst))) (car lst) (str x (cdr lst))))
+;  (define (num n lst)
+;    (if (= n 0) (car lst) (num (- n 1) (cdr lst))))
+;  (if (number? x) (num (- x 1) aP)  (str x aP))
+;  )
+
 (define (get-player x)
   (define (str x lst)
     (if (equal? x (get-fullname (car lst))) (car lst) (str x (cdr lst))))
   (define (num n lst)
-    (if (= n 0) (car lst) (num (- n 1) (cdr lst))))
+    (if (null? lst)
+        '()
+    (if (= n 0) (car lst) (num (- n 1) (cdr lst)))))
   (if (number? x) (num (- x 1) aP)  (str x aP))
   )
 
@@ -312,3 +324,71 @@
   (begin0
   (port->string in)
   (close-input-port in)))
+
+
+(define (create-alg-list)
+  (define (loop new ap)
+    (if (null? ap) new
+       (loop (append new (list (list  0 0))) (cdr ap))
+       )
+    )
+  (loop '() aP)
+  )
+
+(define (trending-players-alg)
+  (define (player-loop n bool alglst pntlst)    
+    (if (null? pntlst)
+        (if (not bool)
+            (edit-num-list n alglst (list (car (get-num-list n alglst)) (+ 1 (cadr (get-num-list n alglst)))))
+            alglst)
+        (cond [(= (caar pntlst) n)
+               (let ([a (+ (car (get-num-list n alglst)) (/ 8 (expt 2 (cadr (get-num-list n alglst)))))])                 
+               (player-loop n #t 
+               (edit-num-list n alglst (list a (cadr (get-num-list n alglst))))
+               (cdr pntlst)))
+               ]
+              [(not (null? (cdar pntlst)))
+               (if (= (cadar pntlst) n)
+                   
+                    (player-loop n #t                                 
+                    (edit-num-list n alglst (list (+ (car (get-num-list n alglst)) (/ 6 (expt 2 (cadr (get-num-list n alglst))))) (cadr (get-num-list n alglst))))
+                    (cdr pntlst))
+                    (if (not (null? (cddar pntlst)))
+                        (if (= (car (cddar pntlst)) n)
+                            
+                            (player-loop n #t 
+                            (edit-num-list n alglst (list (+ (car (get-num-list n alglst)) (/ 6 (expt 2 (cadr (get-num-list n alglst))))) (cadr (get-num-list n alglst))))
+                            (cdr pntlst))
+                            (player-loop n bool alglst (cdr pntlst)))
+                        (player-loop n bool alglst (cdr pntlst))
+              ))]
+              [else (player-loop n bool alglst (cdr pntlst))]
+              )))
+  (define (games-loop alglst gamelst)
+    (define (eachPlayer n players alglst pntlst)
+      (if (null? players) alglst
+          (eachPlayer (+ n 1) (cdr players) (player-loop n #f alglst pntlst) pntlst)))
+      (if (null? gamelst) alglst
+          (if (null? (list-last (list-last gamelst))) (games-loop alglst (but-last gamelst))
+           (games-loop (eachPlayer 1 aP alglst (list-last (list-last gamelst))) (but-last gamelst))))
+    )
+  (games-loop (create-alg-list) all-games)
+  )
+
+(define (trending-top-3)
+  (define (loop n tp ans)
+    (define a (get-num-list n tp))
+    (if (null? a) ans        
+          (if (> (car (get-num-list n tp)) (car (get-num-list (caddr ans) tp)))
+              (if (> (car (get-num-list n tp)) (car (get-num-list (cadr ans) tp)))
+                  (if (> (car (get-num-list n tp)) (car (get-num-list (car ans) tp)))
+                      (loop (+ n 1) tp (list n (car ans) (cadr ans)))
+                      (loop (+ n 1) tp (list (car ans) n (cadr ans))))
+                  (loop (+ n 1) tp (list (car ans) (cadr ans) n)))
+              (loop (+ n 1) tp ans))))    
+  (define tp (trending-players-alg))
+  (define ans (list 1 2 3))
+  (if (> (car (get-num-list 3 tp)) (car (get-num-list 2 tp))) (set! ans (list 1 3 2)) (set! ans ans))
+  (if (> (car (get-num-list (cadr ans) tp)) (car (get-num-list (car ans) tp))) (set! ans (list (cadr ans) (car ans) (caddr ans))) (set! ans ans))
+  (if (> (car (get-num-list (caddr ans) tp)) (car (get-num-list (cadr ans) tp))) (set! ans (list (car ans) (caddr ans) (cadr ans))) (set! ans ans))
+  (loop 4 tp ans))
