@@ -1,6 +1,17 @@
 
 # Project Title: Interactive-Server-Project
 # Team Name: Ken's Bold Team
+###Update: Milestone 2
+To run our tool, open and run the code in InteractiveTestJB.rkt.
+It will automatically open the application in a new window.
+
+New features of this version:
+  4 Pages of Information Pulled from the site
+  Click on player names to view their individual stats.
+  Click on games to view more detailed stats *WIP*
+  "Trending Players" - Display on first page. This is a complex algorithm that tracks how well AND consistant players have been recently. The 3 most consistant players recently are shown on the first page.
+
+
 
 ### Statement
 In this project, we will create an interactive display of hockey-stats for JBrown's beer-league team. 
