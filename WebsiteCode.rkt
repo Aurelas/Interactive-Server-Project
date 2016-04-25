@@ -17,6 +17,7 @@
 (provide get-number)
 (provide get-assists)
 (provide get-points)
+(provide aP)
 (provide trending-top-3)
 ;I recently set up a piece of software (m.jdbjohnbrown.net) that used php _POST functions to retrieve data from a SQL table.
 ;I wanted to experiment and see if I could pull out the data using racket.
