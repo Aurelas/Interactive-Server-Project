@@ -86,7 +86,12 @@ Later, the best three P values are pulled out and used.
   (games-loop (create-alg-list) all-games)
   )
 ```
-####Mike (@Aurelas )
+####Mike (@Aurelas)
+
+We needed a way to rank a player's stats against the other players in the pool so i wrote this, I originally wrote this code to only work with a specific stat, IE the function would only rank 'points' or 'goals' and i had 3 copies of the code below each tailored to a specific stat. John then took my code and combined all 3 into one by passing additional parameters and adding the let portions.
+
+Idea:
+The basic Idea of this code is that we give our function a 'player-id' 'f' (which determines the stat to order players on, 'points' 'assists' or 'goals') and 'g' which will determine a tie breaker. We start off a player's rank at the max rank then we recursively iterate through the list of players comparing each player to the 'player-id' that was given to the function. A large part of this code are null checks so that we don't break down when and if we encounter a problem with the player object. After a few easy checks we either decrement or increment a player's rank whether or not they are better than the person they are being compared to. Then we simply recursively call the helper function again with 'player-id', an incremented i (our iterator for the list of players) and lastly the updated rank of the player. If our iterator ever reaches the same value as the length of our list of players, we know we have reached the end of our player list and thus we can return rank (+ 1, cause we don't want a rank 0).
 
 ```scheme
 (define (get-stat player-id f g)
