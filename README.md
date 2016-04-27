@@ -1,99 +1,130 @@
-
-# Project Title: Interactive-Server-Project
-# Team Name: Ken's Bold Team
-###Update: Milestone 2
-To run our tool, open and run the code in InteractiveTestJB.rkt.
-It will automatically open the application in a new window.
-
-New features of this version:
-  4 Pages of Information Pulled from the site
-  Click on player names to view their individual stats.
-  Click on games to view more detailed stats *WIP*
-  "Trending Players" - Display on first page. This is a complex algorithm that tracks how well AND consistant players have been recently. The 3 most consistant players recently are shown on the first page.
+# Interactive Server Project
 
 
-
-### Statement
-In this project, we will create an interactive display of hockey-stats for JBrown's beer-league team. 
-Basics include, displaying indivudual stats, statistics from games, aswell as displaying who the point leaders of the team are.
-To expand on this basic simple idea, we are also going to implement several algorithms to detect who the "trending" players are, and display facts about them.
-In ex. if a player has been 'hot' recently, the algorithm should identify them, and display their name in a "Players to Watch" list. Beneath their name, our program should use a tree to decide what 2 "facts" are most relevant to the player.
-
-So if they've scored 5 goals in the last 10 games, but three were in the last game, it will choose "Hat-trick Scorer" over "5 in Last 10"
-
-We plan to make this application fully interactive, meaning that users will be able to sort data with simple mouse clicks.
-Additionally, they should be able to update game stats easily within the program, which will then in turn update player stats.
-
-Our main goal is learning how to build an effective GUI in Racket, but also to work on parsing and morphing data.
-
-### Analysis
-There are two data sets we are going to use, detailed below.
-For one of the data sets, poorly written raw html code will lead to extensive use of recursion. Slowly parsing through the file to grab and use the data held in the document will require heavy use of recursion.
-
-Additionally, heavy use of list functions will be required for dealing with lists holding players, lists holding goalies, and lists holding games.
-
-Object-orientation will be used in conjuction with 'images' to hopefully create 'clickable' objects.
-
-Currently we have a working GUI with a couple of buttons that we can click to change the image of our GUI and have a pretty clear cut idea on how to make the program fully interactive. We will use (m.jdbjohnbrown.net) as a template and temper our racket program to mimic the functionality of the template. 
+##Authors
+@JDBJohnBrown ~ John Brown
+@Aurelas      ~ Michael Antrobus 
 
 
-### Data set or other source materials
-There will be two main data sets we will work with in this project. The first is from a SQL database on my own personal site (m.jdbjohnbrown.net) and the second is from hockeytownsaugus.com, html code riddled with errors.
+##Overview
+Display basic information about a beer-league hockey team in a graphically pleasing way.
+Information is retrieved from a webpage, and printed dynamically.
 
-We will need to write new PHP code for handling the SQL interaction, as this is going to be stored in a public repository, and using the SQL database libraries would require making hosting the passwords publically.
-
-The data will be sorted into neatly formed lists, from where we will alter the data to our liking using various parsing methods, to then be displayed graphically.  
-
-
-### Deliverable and Demonstration
-At the end of this project we should have a program that not only pulls then displays data from a pair of websites, but also allows users to change the data in the SQL database. The program will also run various tests on the data sets and compliment players who are doing well, and bring attention to them for recent good performances.
-
-Again, this is all the background work behind the real goal, of making an interactive GUI which will use basic shapes to display and manipulate the data without using the command line.
-
-### Evaluation of Results
-We will know when we are successful when someone brand-new to our program can easily utilize our tool to view and update statistics.
-This should be easily testable in a presentation, as well in testing phases, as asking for a voulenteer will be brief.
-
-## Architecture Diagram
-
-![alt text](https://raw.githubusercontent.com/oplS16projects/Interactive-Server-Project/master/OPL%20Architecture%20interactive%20server.png)
-
-Create several paragraphs of narrative to explain the pieces and how they interoperate
-
-**Net/url and racket:**
-
-Using the Net/url library we will be able to write code which will grab data from our SQL server and transform it into a string, this string will then be read into a racket object for storing.
-
-**2htdp/Universe and world:**
-
-Once we have the racket object with our database data inside, we can use the net/url functions to access specific pieces of data. This data will mostly be comprised of numbers which in turn can be interpreted interpretted as a 'world state' by the 2htdp/Universe library. For example our object may contain a field called 'Number of goals' which will have a number associated with it. We can take this number, transform it into a 'world state' then we can transform the world using mouse clicks and keyboard keys to change the number. After changing the number the 'world' will report back a new 'world state', we will take this new 'world state' and load it into the object ultimately changing the information of our database.
-
-**2hdtp/image:**
-
-Hopefully by utilizing 2hdtp/image function we will be able to make the 'worlds' look more appealing to eye and possibly add some cool effects.
+##Screenshot
+![4 different views, downsized screenshot](ServerInteractive-4View-ScreenShot.png)
 
 
-## Schedule
 
-### First Milestone (Fri Apr 15)
-Basic mouse-click interactive program. Clickable buttons which execute functions.
+##Concepts Demonstrated
+* Players/games are stored with **recursive data structures.**
+* **Data astraction** is used by defining lists in "WebsiteCode.rkt" but only providing basic read access to "Main Code.rkt"
+* Extensive **functional recursion** is used to parse data passed from the website.
 
-### Second Milestone (Fri Apr 22)
-Algorithm results display on screen. -> Fun facts about "trending" players will appear.
-Numerous 'pages' within the application will display different sets of data.
 
-Finish creating the rest of the images and implementing them. Will also add arrow key functionality to specific images to mimic an image slideshow.
+##External Technology and Libraries
+[net/url](https://docs.racket-lang.org/net/url.html "net/url") - Racket Library. Used to send PHP_Send commands to [John Brown's Personal Website](m.jdbjohnbrown.net)
+[m.jdbjohnbrown.net](http:/m.jdbjohnbrown.net "PHP Code") - PHP Code written by myself (John Brown) previously. Used in conjunction with net/url to access a SQL database without hosting the SQL database's password publically on gitHub.
+[2htdp/image](https://docs.racket-lang.org/teachpack/2htdpimage.html "2htdp Image")\[2htdp/universe](https://docs.racket-lang.org/teachpack/2htdpuniverse.html "2htdp Universe") - Racket libraries used to draw our GUI.
 
-### Final Presentation (last week of semester)
-Sending data back to the server for updates.
-Possibly addition smooth graphical transitions between pages.
+##Favorite Scheme Expressions
+####John (@JDBJohnBrown)
+My favorite part of my coding was my "trending players" algorithm. As a warning, it is not my prettiest code. By the time I finished it I was so done with it I couldn't neaten it up as I did to much else of our code.
+The point of this code is to find who the most consistant players have been as of late. When I first created the base of our program, there were 3 different point leaders. I had the team high for goals, and two other players lead in points and assists. However as the season wore on, I took all three titles. This made for a very boring title screen. It was also misleading. Because while I may have the best season stats, I have been cold for over two months. I wanted to know who has been doing well recently comparitively.
 
-## Group Responsibilities
+The basic idea behind the code is this: 
+Each player is given a 2-element list. (P M)
+Starting at the team's most recent game, the player is given 8\*M points for each goal (P+=8\*M) and 6*M for each assist.
+However, if a player does not score in a game, M is divided by 2, and potential P for the next game back is halved.
+This is compare someone who has been hot for three games in a row lately compared to someone who had 20 goals in the first month.
 
-### Michael Antrobus @Aurelas
-Will work on implementing the rest of the UI and screens using (m.jdbjohnbrown.net) as a template, will also add up arrow
-and down arrow functionality to limited screens.
+The code becomes complicated due to how dynamic game stats can be.
+It works basically like this: For each game, for each player, for each goal, check if the goal or one of the two asists belong to the player. Add points or games missed appropriately.
+Stats are stored in order of the players (1-13) in a list like '((P M)(P M).....(P M))
+Later, the best three P values are pulled out and used.
+```scheme
+(define (trending-players-alg)
+  (define (player-loop n bool alglst pntlst)    
+    (if (null? pntlst)
+        (if (not bool)
+            (edit-num-list n alglst (list (car (get-num-list n alglst)) (+ 1 (cadr (get-num-list n alglst)))))
+            alglst)
+        (cond [(= (caar pntlst) n)
+               (let ([a (+ (car (get-num-list n alglst)) (/ 8 (expt 2 (cadr (get-num-list n alglst)))))])                 
+               (player-loop n #t 
+               (edit-num-list n alglst (list a (cadr (get-num-list n alglst))))
+               (cdr pntlst)))
+               ]
+              [(not (null? (cdar pntlst)))
+               (if (= (cadar pntlst) n)
+                   
+                    (player-loop n #t                                 
+                    (edit-num-list n alglst (list (+ (car (get-num-list n alglst)) (/ 6 (expt 2 (cadr (get-num-list n alglst))))) (cadr (get-num-list n alglst))))
+                    (cdr pntlst))
+                    (if (not (null? (cddar pntlst)))
+                        (if (= (car (cddar pntlst)) n)
+                            
+                            (player-loop n #t 
+                            (edit-num-list n alglst (list (+ (car (get-num-list n alglst)) (/ 6 (expt 2 (cadr (get-num-list n alglst))))) (cadr (get-num-list n alglst))))
+                            (cdr pntlst))
+                            (player-loop n bool alglst (cdr pntlst)))
+                        (player-loop n bool alglst (cdr pntlst))
+              ))]
+              [else (player-loop n bool alglst (cdr pntlst))]
+    )))
+  (define (games-loop alglst gamelst)
+      (define (eachPlayer n players alglst pntlst)
+        (if (null? players) alglst
+            (eachPlayer (+ n 1) (cdr players) (player-loop n #f alglst pntlst) pntlst)
+      ))
+    (if (null? gamelst) alglst
+        (if (null? (list-last (list-last gamelst))) (games-loop alglst (but-last gamelst))
+          (games-loop (eachPlayer 1 aP alglst (list-last (list-last gamelst))) (but-last gamelst))))
+    )
+  (games-loop (create-alg-list) all-games)
+  )
+```
+####Mike (@Aurelas )
 
-### John Brown @JDBJohnBrown
-John will work heavily on the retrieval and manipulation of data, as well as writing any PHP code neccesary for interacting with the SQL server.   Will assist with interactivity in the GUI.
+```scheme
+(define (get-stat player-id f g)
+  (define (helper player-id i rank)
+    (if (> i (length aP))
+        (+ rank 1)
+    (if (null? (get-player player-id))
+        rank
+        (if (null? (get-points (get-player player-id)))
+            rank
+            (if (null? (get-player i))
+                (helper player-id (+ i 1) (length aP))
+                    (let ([a (string->number (f (get-player player-id)) 10)]
+                          [b (string->number (f (get-player i)) 10)]
+                          [c (string->number (g (get-player player-id)) 10)]
+                          [d (string->number (g (get-player i)) 10)]
+                          [e (get-fullname (get-player player-id))]
+                          [f (get-fullname (get-player i))]
+                          )
+                      (if (equal? e f) (helper player-id (+ i 1 ) (- rank 1))
+                      (if (> a b)
+                        (helper player-id (+ i 1 ) (- rank 1))
+                         (if (and (= a b) (or (> c d) (= player-id 1)))
+                            (helper player-id (+ i 1 ) (- rank 1))
+                            (helper player-id (+ i 1) rank))
+                        )))
+                    ))))) 
+  (helper player-id 1 (length aP)))
+```
 
+##Additional Remarks
+Anything else you want to say in your report. Can rename or remove this section.
+
+#How to Download and Run
+Download the release named "Final"
+
+Run "Main Code.rkt"
+The GUI should open automatically. 
+
+*Due to paying for a cheap webserver, there is a small chance you may get an error "server took too long to respond".
+Just retry, it should work the second time.
+
+To use the program, click each of the 4 buttons on the top toolbar to see 4 seperate pages.
+On the Player stats page, you can click "#" "G" "A" "P" to sort the stats appropriately.
