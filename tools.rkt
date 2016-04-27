@@ -1,4 +1,7 @@
 #lang racket
+;tools.rkt is a collection of frequently used pieces of code found throughout
+;"WebsiteCode" "Images" and "MainCode"
+
 (provide remove-last)
 (provide string-find)
 (provide instr)
@@ -9,6 +12,9 @@
 (provide but-last)
 (provide get-num-list)
 (provide edit-num-list)
+(provide get-team-name)
+
+;Removes the last element from a list
 (define (remove-last lst)
     (if (null? (cdr lst))
         '()
@@ -29,12 +35,17 @@
   (if (eq? (string-ref string i) (string-ref sub j)) (instr string sub (+ i 1) (+ j 1)) (instr string sub (+ i 1) 0)) 
       )))
 
+;gets the first character of a string
 (define (car-str str) (if (equal? str "") "" (substring str 0 1)))
+;gets all but the first character of a string
 (define (cdr-str str) (if (equal? str "") "" (substring str 1 (string-length str))))
 
+;returns the last element of a list
 (define (list-last lst) (if (null? lst) '() (car (reverse lst))))
+;removes the last element of a list
 (define (but-last lst) (if (null? lst) '()(reverse (cdr (reverse lst)))))
 
+;returns the xth element of a list
 (define (get-num-list x lst)
   (define (loop n x lst)
     (if (null? lst) '()
@@ -43,6 +54,7 @@
   (loop 1 x lst)
   )
 
+;replaces the xth element of a list lst with the value: edit
 (define (edit-num-list x lst edit)
   (define (loop n x lst new edit)
     (if (null? lst) new
@@ -50,3 +62,22 @@
              (loop (+ n 1) x (cdr lst) (append new (list (car lst))) edit))))
   (loop 1 x lst '() edit)
   )
+
+; To save the amount of data being communicated, the team names are not saved on a server, and are instead
+; represented by a number. Here that number is translated into a name.
+(define (get-team-name x)
+(cond  [(= x 1) "Dragons"]
+[(= x 2) "Chiefs"]
+[(= x 3) "Toews"]
+[(= x 4) "Purple Haze"]
+[(= x 5) "Tanner Factory"]
+[(= x 6) "Sudden Death"]
+[(= x 7) "Dark Knights"]
+[(= x 8) "Bullets"]
+[(= x 9) "Crew"]
+[(= x 10) "Hackers"]
+[(= x 11) "Hackers"]
+[(= x 12) "Misfits"]
+[else "N/A"]))
+
+
