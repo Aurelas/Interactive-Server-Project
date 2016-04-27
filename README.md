@@ -26,6 +26,7 @@ Information is retrieved from a webpage, and printed dynamically.
 [net/url](https://docs.racket-lang.org/net/url.html "net/url") - Racket Library. Used to send PHP_Send commands to [John Brown's Personal Website](http://m.jdbjohnbrown.net)
 
 [m.jdbjohnbrown.net](http:/m.jdbjohnbrown.net "PHP Code") - PHP Code written by myself (John Brown) previously. Used in conjunction with net/url to access a SQL database without hosting the SQL database's password publically on gitHub.
+
 [2htdp/image](https://docs.racket-lang.org/teachpack/2htdpimage.html "2htdp Image") \ [2htdp/universe](https://docs.racket-lang.org/teachpack/2htdpuniverse.html "2htdp Universe") - Racket libraries used to draw our GUI.
 
 ##Favorite Scheme Expressions
