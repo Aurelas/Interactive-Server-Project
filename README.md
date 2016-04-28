@@ -122,8 +122,6 @@ The basic Idea of this code is that we give our function a 'player-id' 'f' (whic
   (helper player-id 1 (length aP)))
 ```
 
-##Additional Remarks
-Anything else you want to say in your report. Can rename or remove this section.
 
 #How to Download and Run
 Download the release named "Final"
