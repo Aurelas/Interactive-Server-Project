@@ -124,7 +124,7 @@ The basic Idea of this code is that we give our function a 'player-id' 'f' (whic
 
 
 #How to Download and Run
-Download the release named "Final"
+Download the release named [Final Release](https://github.com/oplS16projects/Interactive-Server-Project/releases/tag/1 "Final")
 
 Run "Main Code.rkt"
 The GUI should open automatically. 
