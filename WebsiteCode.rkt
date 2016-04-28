@@ -1,4 +1,6 @@
 #lang racket
+;This is the background operations of most of the code.
+;All of the code in this file directly relates to interacting with online files, and parsing the information recieved.
 (require net/url)
 (require "tools.rkt")
 (provide create-game)
@@ -17,6 +19,7 @@
 (provide get-number)
 (provide get-assists)
 (provide get-points)
+(provide aP)
 (provide trending-top-3)
 ;I recently set up a piece of software (m.jdbjohnbrown.net) that used php _POST functions to retrieve data from a SQL table.
 ;I wanted to experiment and see if I could pull out the data using racket.
@@ -133,6 +136,7 @@
   (if (equal? (substring s 0 5) "*****") '() (if (< (string-length (string-trim s)) 28) (partial s) (parse s)))
   )
 
+;Changes raw string data recieved from the website into a list
 (define (parse-game-str str)
   (define (check-c c r) (if (eq? (string->number (car-str r)) #f) c (string-append c (car-str r))))
   (define (check-r c r) (if (eq? (string->number (car-str r)) #f) r (cdr-str r)))
@@ -300,14 +304,6 @@
 ;This code has two different ways to run, but returns the same output.
 ;You either pass it a player's id number (1-12) or Lastname, Firstname and it will
 ;return the player object out of aP
-;(define (get-player x)
-;  (define (str x lst)
-;    (if (equal? x (get-fullname (car lst))) (car lst) (str x (cdr lst))))
-;  (define (num n lst)
-;    (if (= n 0) (car lst) (num (- n 1) (cdr lst))))
-;  (if (number? x) (num (- x 1) aP)  (str x aP))
-;  )
-
 (define (get-player x)
   (define (str x lst)
     (if (equal? x (get-fullname (car lst))) (car lst) (str x (cdr lst))))
@@ -318,14 +314,10 @@
   (if (number? x) (num (- x 1) aP)  (str x aP))
   )
 
-  (define (update-game x)
-  (define in
-  (post-pure-port my-site (string->bytes/utf-8 (format  "f=sgi&id=30&d=2016-04-11 07:29:00&opp=0&gf=&ga=&gd=%20&gid=12" )) Header) )
-  (begin0
-  (port->string in)
-  (close-input-port in)))
 
-
+;Creates an "empty" algorithm list, whose size = # of players
+;An algorithm list in this case being a series of 2integer lists.
+;The first integer represents how many "trending" points a player has, the 2nd number represents how many games they didn't score goals.
 (define (create-alg-list)
   (define (loop new ap)
     (if (null? ap) new
@@ -335,6 +327,11 @@
   (loop '() aP)
   )
 
+;Complicated algorithm
+;Start A at 1 for each player.
+;Starting from the last game, check if the player in question scored.
+;If they did give them 8*A points for a goal, and 6*A points for an assist.
+;If they didn't score divide A by 2.
 (define (trending-players-alg)
   (define (player-loop n bool alglst pntlst)    
     (if (null? pntlst)
@@ -375,6 +372,7 @@
   (games-loop (create-alg-list) all-games)
   )
 
+;Finds the best three players from the above algorithm and places them in a list '(1 2 3)
 (define (trending-top-3)
   (define (loop n tp ans)
     (define a (get-num-list n tp))
